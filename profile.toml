@@ -1,0 +1,158 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Profile config — the single source of truth for the profile artwork.
+#
+#  Static art  (header, terminal, section titles, project cards, footer):
+#      python3 scripts/build_assets.py            → writes ./assets/*.svg
+#  Live stats  (stats, streak, languages, weekday, activity, trophies, quote):
+#      GITHUB_TOKEN=... python3 scripts/build_metrics.py --out dist
+#      (run daily by .github/workflows/profile-metrics.yml → `output` branch)
+#
+#  Changing the palette below recolors every generated SVG. The badge URLs in
+#  README.md (shields.io / komarev / skillicons) use the same hex values, so
+#  search-and-replace them there if you change the core colors.
+# ─────────────────────────────────────────────────────────────────────────────
+
+[profile]
+username = "NovrusShehaj"
+name     = "Novrus Shehaj"
+tagline  = "Reliable APIs. Secure developer tools."
+roles    = ["Backend Engineer", "Security & Identity", "Developer Tooling", "Scientific Computing"]
+motto    = "Make complex systems easy to use — and hard to break."
+host     = "arch"
+chips    = ["Connecticut, USA", "UConn CS '25", "Open to opportunities"]
+
+# Rows printed by the `fastfetch` terminal card. Keep values ≤ 44 characters.
+[[terminal]]
+key = "Role"
+value = "Application Developer"
+[[terminal]]
+key = "Org"
+value = "UConn Health · Cell Analysis & Modeling"
+[[terminal]]
+key = "Projects"
+value = "BioSimulations · Virtual Cell"
+[[terminal]]
+key = "Location"
+value = "Connecticut, United States"
+[[terminal]]
+key = "Education"
+value = "B.S. CS · Cybersecurity · UConn '25"
+[[terminal]]
+key = "Focus"
+value = "Backend APIs · Auth & Identity · Dev tools"
+[[terminal]]
+key = "Stack"
+value = "Python · FastAPI · TypeScript · Docker · K8s"
+[[terminal]]
+key = "Security"
+value = "OAuth 2.0 / OIDC · JWT · RBAC"
+[[terminal]]
+key = "OS"
+value = "Arch Linux + Hyprland"
+[[terminal]]
+key = "Editor"
+value = "Neovim + tmux"
+[[terminal]]
+key = "Status"
+value = "Open to SWE & security roles · remote OK"
+
+# Featured work cards (assets/project-<slug>.svg). Descriptions wrap at ~54 chars, max 4 lines.
+[[projects]]
+slug  = "biosimulations"
+title = "BioSimulations Platform"
+kind  = "Professional · Backend & Security"
+icon  = "shield"
+description = "Backend services for running and verifying reproducible biological simulations: Auth0/OIDC sign-in, JWT validation with a resilient JWKS cache, and composable role-based authorization."
+tags  = ["Python", "FastAPI", "Auth0 / OIDC", "Kubernetes"]
+url   = "https://github.com/biosimulations/platform"
+
+[[projects]]
+slug  = "compose-api"
+title = "Compose API"
+kind  = "Professional · Developer Tooling"
+icon  = "terminal"
+description = "A command-line client for biological workflows and co-simulations: browser PKCE sign-in, an SSH-friendly device flow, and sessions kept in the OS keychain."
+tags  = ["Python", "FastAPI", "OAuth", "CLI"]
+url   = "https://github.com/biosimulations/compose-api"
+
+[[projects]]
+slug  = "edgeai-sentinel"
+title = "EdgeAI Sentinel"
+kind  = "Personal · Inference & Monitoring"
+icon  = "cpu"
+description = "An object-detection pipeline spanning YOLOv8 training, ONNX export, a token-secured inference API, and Prometheus-based operational monitoring."
+tags  = ["YOLOv8", "ONNX", "FastAPI", "Docker", "Prometheus"]
+url   = "https://github.com/NovrusShehaj/EdgeAI-Sentinel"
+
+[[projects]]
+slug  = "gemma4-cyberai"
+title = "Gemma4-CyberAi"
+kind  = "Personal · Security AI"
+icon  = "spark"
+description = "A defensive-security assistant on open-weight Gemma served by Ollama, with one shared inference engine behind a CLI, HTTP API and web UI, plus a versioned eval harness."
+tags  = ["Python", "Ollama", "FastAPI", "LLM evals"]
+url   = "https://github.com/NovrusShehaj/Gemma4-CyberAi"
+
+[[projects]]
+slug  = "endpointctl"
+title = "endpointctl"
+kind  = "Personal · Security Tooling"
+icon  = "scan"
+description = "A cross-platform CLI that reports endpoint health and security posture: host metadata, disk capacity, full-disk encryption and a protection baseline. Scan-only by design."
+tags  = ["Python", "CLI", "Endpoint security"]
+url   = "https://github.com/NovrusShehaj/endpoint-automation"
+
+[[projects]]
+slug  = "pinevim"
+title = "PineVim"
+kind  = "Personal · Developer Tooling"
+icon  = "layout"
+description = "Runs the Pi coding agent beside your own Neovim inside a private tmux workspace, with managed layout, lifecycle and recovery."
+tags  = ["TypeScript", "Node.js", "Neovim", "tmux"]
+url   = "https://github.com/NovrusShehaj/PineVim"
+
+[metrics]
+# Languages from repos you own (forks excluded). Private repos are only counted
+# when this is true AND the token can see them (a PAT in METRICS_TOKEN).
+include_private_languages = false
+exclude_languages = ["Jupyter Notebook", "Jinja", "Mako", "Edge", "Procfile"]
+languages_count   = 8
+
+# Dev quote of the day — rotates daily. Keep attributions accurate.
+quotes = [
+  { text = "Simplicity is prerequisite for reliability.", author = "Edsger W. Dijkstra" },
+  { text = "Security is a process, not a product.", author = "Bruce Schneier" },
+  { text = "Talk is cheap. Show me the code.", author = "Linus Torvalds" },
+  { text = "Programs must be written for people to read, and only incidentally for machines to execute.", author = "Harold Abelson" },
+  { text = "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.", author = "Martin Fowler" },
+  { text = "Controlling complexity is the essence of computer programming.", author = "Brian Kernighan" },
+  { text = "Make it work, make it right, make it fast.", author = "Kent Beck" },
+  { text = "Testing shows the presence, not the absence of bugs.", author = "Edsger W. Dijkstra" },
+  { text = "Premature optimization is the root of all evil.", author = "Donald Knuth" },
+  { text = "Amateurs hack systems, professionals hack people.", author = "Bruce Schneier" },
+  { text = "The best way to predict the future is to invent it.", author = "Alan Kay" },
+  { text = "Simple things should be simple, complex things should be possible.", author = "Alan Kay" },
+  { text = "The most dangerous phrase in the language is: we've always done it this way.", author = "Grace Hopper" },
+  { text = "Walking on water and developing software from a specification are easy if both are frozen.", author = "Edward V. Berard" },
+]
+
+# ── Color scheme: "Aurora Circuit" ──────────────────────────────────────────
+[theme]
+bg       = "#070B12"   # deepest background
+surface  = "#0B111B"   # card fill
+raised   = "#111A27"   # title bars, empty cells
+border   = "#1E2B3C"
+grid     = "#15233A"
+text     = "#E8F0F8"
+text_dim = "#A9B8C8"
+muted    = "#6B7D91"
+ink      = "#04121A"   # dark text on bright fills
+mint     = "#00F5A0"
+cyan     = "#00D9F5"
+azure    = "#3D8BFF"
+violet   = "#A78BFA"
+rose     = "#FF5C8A"
+amber    = "#FFB547"
+# Signature gradient (header name, borders, dividers) and chart series order.
+gradient = ["#00F5A0", "#00D9F5", "#3D8BFF"]
+series   = ["#00F5A0", "#00D9F5", "#3D8BFF", "#A78BFA", "#FF5C8A", "#FFB547", "#5EEAD4", "#93C5FD"]

@@ -1,0 +1,63 @@
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║  📊 PROFILE METRICS                                                      ║
+# ║  Rebuilds the live profile cards (stats, streak, languages, weekday,     ║
+# ║  activity, trophies, quote) and the contribution snake, then publishes   ║
+# ║  them to the `output` branch that README.md reads from.                  ║
+# ║                                                                          ║
+# ║  Optional: add a fine-grained PAT as the METRICS_TOKEN secret to count   ║
+# ║  private contributions/languages (see profile.toml → [metrics]).         ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
+
+name: Profile metrics
+
+on:
+  schedule:
+    - cron: "23 4 * * *"          # daily, 04:23 UTC
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "profile.toml"
+      - ".github/workflows/profile-metrics.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-metrics
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build stat cards
+        env:
+          GITHUB_TOKEN: ${{ secrets.METRICS_TOKEN || secrets.GITHUB_TOKEN }}
+        run: python3 scripts/build_metrics.py --out dist
+
+      - name: Generate contribution snake
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/snake-dark.svg?color_snake=#00D9F5&color_dots=#15233A,#0A5C47,#0B8F6A,#00C389,#00F5A0
+            dist/snake-light.svg?color_snake=#3D8BFF&color_dots=#EBEDF0,#9BE9C9,#4FD6A6,#10B981,#047857
+
+      - name: List generated files
+        run: ls -la dist
+
+      - name: Publish to output branch
+        uses: crazy-max/ghaction-github-pages@v5
+        with:
+          target_branch: output
+          build_dir: dist
+          keep_history: false
+          jekyll: false
+          commit_message: "chore: refresh profile metrics"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
